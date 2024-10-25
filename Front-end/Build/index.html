@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to top, #87CEEB, #f0f8ff);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .weather-info {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin-bottom: 20px;
+        }
+        #city-input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            width: calc(100% - 22px);
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .clouds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+        .cloud:before, .cloud:after {
+            content: '';
+            position: absolute;
+            background: white;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        .cloud:before {
+            top: -50px;
+            left: 50px;
+        }
+        .cloud:after {
+            top: -50px;
+            left: -50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Dashboard</h1>
+        <div class="weather-info">
+            <p>Temperature: <span id="temp-value">0°C</span></p>
+            <p>Humidity: <span id="humidity-value">0%</span></p>
+            <p>Description: <span id="description-value">N/A</span></p>
+        </div>
+        <input type="text" id="city-input" placeholder="Enter city name">
+        <button onclick="fetchWeatherData()">Get Weather</button>
+    </div>
+
+    <div class="clouds">
+        <div class="cloud" style="width: 200px; height: 200px; top: 20%; left: 10%;"></div>
+        <div class="cloud" style="width: 300px; height: 300px; top: 40%; left: 70%;"></div>
+    </div>
+
+    <script>
+        async function fetchWeatherData() {
+            const city = document.getElementById('city-input').value;
+            try {
+                const response = await fetch(`http://3.82.211.116:8000/api/weather/?city=${city}`);
+                const data = await response.json();
+
+                document.getElementById('temp-value').textContent = `${data.temperature}°C`;
+                document.getElementById('humidity-value').textContent = `${data.humidity}%`;
+                document.getElementById('description-value').textContent = data.description;
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+            }
+        }
+
+        fetchWeatherData(); // Fetch weather data for the default city on page load
+    </script>
+</body>
+</html>
