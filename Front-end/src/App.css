@@ -1,0 +1,36 @@
+.weather-container {
+  text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  margin: 20px auto;
+}
+
+.weather-container input {
+  padding: 10px;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.weather-container .rainy {
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+}
+
+.weather-container .sunny {
+  background: linear-gradient(to right, #f7b733, #fc4a1a);
+}
+
+.weather-container .cloudy {
+  background: linear-gradient(to right, #bdc3c7, #2c3e50);
+}
+
+.weather-container p {
+  margin: 5px 0;
+  font-size: 18px;
+  color: #333;
+}
